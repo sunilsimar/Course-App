@@ -1,13 +1,14 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+require("dotenv").config();
 const app = express();
 
 app.use(express.json());
 
 //using jwt(jsonwebtoken its provide security to password like cryptography)
 
-const secretKey = "YOUR_SECRET_KEY";
+const secretKey = process.env.SECRET_KEY;
 
 //define mongoose schemas
 const userSchema = new mongoose.Schema({
@@ -53,10 +54,8 @@ const authenticateJwt = (req, res, next) => {
 };
 
 //connect to mongoose
-// mongoose.connect(
-  // "mongodb+srv://KartikSimar:kartik@123@cluster0.xudjh4u.mongodb.net/Course",
-  mongoose.connect('mongodb+srv://Sunil:npyZO4sqdoGOsFnO@cluster0.x9grnfl.mongodb.net/Backend', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
-//   { useNewUrlParser: true, useUnifiedTopology: true, dbName: Course }
+mongoose.connect(
+  process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
 
 const generateJwt = (user) => {
   const payload = { username: user.username };
