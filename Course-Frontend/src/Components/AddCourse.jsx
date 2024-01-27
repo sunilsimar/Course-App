@@ -9,7 +9,7 @@ function AddCourse() {
   const [price, setPrice] = useState(0)
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", minHeight: "80vh", }}>
+    <div style={{ display: "flex", justifyContent: "center", minHeight: "80vh", flexDirection: "column" }}>
       <div
         style={{
           display: "flex",
@@ -17,12 +17,12 @@ function AddCourse() {
         }}
       >
         <Card
-          variant="outlined"
+          variant={"outlined"}
           style={{
             width: 400,
             padding: 20,
             marginTop: 150,
-            height: 300
+            height: "100%"
           }}
         >
           <TextField
@@ -36,8 +36,8 @@ function AddCourse() {
           />
           <TextField
             style={{ marginBottom: 10 }}
-            onChange={(e1) => {
-              setDescription(e1.target.value);
+            onChange={(e) => {
+              setDescription(e.target.value);
             }}
             fullWidth={true}
             label="Description"
@@ -46,8 +46,8 @@ function AddCourse() {
 
           <TextField
             style={{ marginBottom: 10 }}
-            onChange={(e1) => {
-              setImage(e1.target.value);
+            onChange={(e) => {
+              setImage(e.target.value);
             }}
             fullWidth={true}
             label="Image link"
@@ -56,8 +56,8 @@ function AddCourse() {
 
           <TextField
             style={{ marginBottom: 10 }}
-            onChange={(e1) => {
-              setPrice(e1.target.value);
+            onChange={(e) => {
+              setPrice(e.target.value);
             }}
             fullWidth={true}
             label="Price"

@@ -6,17 +6,17 @@ import axios from "axios"
 function Courses() {
     const [courses, setCourses] = useState([])
 
-    useEffect(() => {
-        axios.get("http://localhost:3001/admin/courses", {
-            method: "GET",
+    const init = async () => {
+        const response = await axios.get("http://localhost:3001/admin/courses/", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }
-        }).then(res => {
-            setCourses(res.data.courses);
-        }).catch(error => {
-            console.error("Error fetching data:", error);
-        });
+        })
+        setCourses(response.data.courses)
+    }
+
+    useEffect(() => {
+        init()
     }, [])
 
 
@@ -29,7 +29,7 @@ function Courses() {
     </div>
 }
 
-export function Course(props) {
+export function Course({ course }) {
     const navigate = useNavigate();
 
     return <Card style={{
@@ -38,12 +38,12 @@ export function Course(props) {
         minHeight: 200,
         padding: 20
     }}>
-        <Typography textAlign={"center"} variant="h5">{props.course.title}</Typography>
-        <Typography textAlign={"center"} variant="subtitle1">{props.course.description}</Typography>
-        <img src={props.course.imageLink} style={{ width: 300 }}></img>
+        <Typography textAlign={"center"} variant="h5">{course.title}</Typography>
+        <Typography textAlign={"center"} variant="subtitle1">{course.description}</Typography>
+        <img src={course.imageLink} style={{ width: 300 }}></img>
         <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
             <Button variant="contained" size="large" onClick={() => {
-                navigate("/course/" + props.course._id);
+                navigate("/course/" + course._id);
             }}>Edit</Button>
         </div>
     </Card>

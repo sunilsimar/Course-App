@@ -14,8 +14,7 @@ router.get("/me", authenticateJwt, async (req, res) => {
     res.status(403).json({ message: "Admin doesn't exist" });
   }
   res.json({
-    message: "Hello world",
-    username: req.user.username,
+    username: admin.username,
   });
 });
 

@@ -4,10 +4,16 @@ import Card from "@mui/material/Card";
 import { Typography } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../store/atoms/user";
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const setUser = useSetRecoilState(userState);
+
   return (
     <div>
       <div
@@ -33,11 +39,9 @@ function Signup() {
         >
           <TextField
             onChange={(e1) => {
-              let element = e1.target;
-              setEmail(element.value);
+              setEmail(e1.target.value);
             }}
             fullWidth={true}
-            id="outlined-basic"
             label="Email"
             variant="outlined"
           />
@@ -48,7 +52,6 @@ function Signup() {
               setPassword(e.target.value);
             }}
             fullWidth={true}
-            id="outlined-basic"
             label="Password"
             variant="outlined"
             type={"password"}
@@ -67,7 +70,8 @@ function Signup() {
 
               let data = response.data;
               localStorage.setItem("token", data.token);
-              window.location = "/"
+              setUser({ userEmail: email, isLoading: false })
+              navigate("/courses")
             }}
           >
             Signup
