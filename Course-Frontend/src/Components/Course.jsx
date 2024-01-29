@@ -2,7 +2,7 @@ import { Card, Typography, Button, TextField, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useRecoilBridgeAcrossReactRoots_UNSTABLE, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { courseState } from "../store/atoms/course";
 import { courseImage, coursePrice, courseTitle, isCourseLoading } from "../store/selectors/course";
 import { Loading } from "./Loading";
@@ -59,9 +59,10 @@ function GrayTopper() {
 
 function UpdateCard() {
   const [courseDetails, setCourse] = useRecoilState(courseState);
-  const [title, setTitle] = useState(courseDetails.title);
+  const [title, setTitle] = useState(courseDetails.course.title);
   const [description, setDescription] = useState(courseDetails.course.description);
-  const [image, setImage] = useState(courseDetails.course.imageLink)
+  const [image, setImage] = useState(courseDetails.course.imageLink);
+  console.log("image", image)
   const [price, setPrice] = useState(courseDetails.course.price);
 
   return <div
@@ -154,11 +155,17 @@ function UpdateCard() {
       </div>
     </Card>
   </div>
+
 }
+
 
 function CourseCard(props) {
   const title = useRecoilValue(courseTitle);
   const imageLink = useRecoilValue(courseImage)
+
+
+  console.log("title", title)
+
 
   return <div style={{ display: "flex", marginTop: 50, justifyContent: "center", width: "100%" }}>
     <Card style={{
@@ -170,7 +177,7 @@ function CourseCard(props) {
       paddingBottom: 15,
       zIndex: 2
     }}>
-      <img src={imageLink} style={{ widht: 350 }}></img>
+      <img src={imageLink} style={{ width: 350 }}></img>
       <div style={{ marginBottom: 10 }}>
         <Typography variant="h5">{title}</Typography>
         <Price />

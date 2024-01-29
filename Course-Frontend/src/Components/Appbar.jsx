@@ -59,11 +59,14 @@ function Appbar({ }) {
               setUser({
                 isLoading: false,
                 userEmail: null
-              })
+              },
+                navigate('/')
+              )
 
             }}
           >
             Logout
+
           </Button>
         </div>
       </div>
