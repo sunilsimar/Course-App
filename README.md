@@ -1,4 +1,3 @@
-#CourseApp
 ## Course Selling Website 
 
 This repository contains the source code for the admin dashboard of a Course Selling Website. The dashboard is built using React for the frontend and Node.js with Express for the backend. MongoDB is used as the database to manage course information. The repository is structured into two main components: the frontend and the backend.
